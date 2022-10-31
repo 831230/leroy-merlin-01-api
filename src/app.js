@@ -1,61 +1,173 @@
-var debounce = require('lodash.debounce');
+var debounce = require("lodash.debounce");
 
-const OPENROUTE_API_URL = "https://api.openrouteservice.org/geocode/search/structured";
 const API_KEY = "5b3ce3597851110001cf62487acc6af265804ad99a403e145821be1a";
-const ANOTHER_PARAMS_API_URL = "focus.point.lon=19.846570115898984&focus.point.lat=50.10754511537663&boundary.country=PL";
+const ANOTHER_PARAMS_API_URL =
+  "focus.point.lon=19.846570115898984&focus.point.lat=50.10754511537663&boundary.country=PL";
+  const OPENROUTE_API_URL_AUTOCOMPLETE = "https://api.openrouteservice.org/geocode/autocomplete";
 const DEBOUNCE_DELAY = 1000;
 
-const searchBoxForm = document.querySelector(".search-box-form");
-const contentBox = document.querySelector(".content");
+const searchBoxForm = document.querySelector(".form-driver");
+const searchResultsDivStartTitle = document.querySelector(".search-results-start__title-space");
+const searchResultsDivStart = document.querySelector(".search-results-start");
+const searchResultsDivEnd = document.querySelector(".search-results-end");
+const searchResultsDivEndTitle = document.querySelector(".search-results-end__title-space");
 
 class ChosenPlaceObject {
-  constructor(label, region, coordinatesLat, coordinatesLon ){
-    this.label=label,
-    this.region=region,
-    this.coordinatesLat=coordinatesLat,
-    this.coordinatesLon=coordinatesLon
+  constructor(label, region, coordinatesLat, coordinatesLon) {
+    (this.label = label),
+      (this.region = region),
+      (this.coordinatesLat = coordinatesLat),
+      (this.coordinatesLon = coordinatesLon);
+  }
+}
+
+searchBoxForm.addEventListener(
+  "input",
+  debounce(() => {
+    if (!searchBoxForm.start.value) {
+      return
+    }
+    let searchBoxTownValue = searchBoxForm.start.value.trim();
+    let searchBoxStreetValue = searchBoxForm.start_street.value.trim();
+    console.log(searchBoxTownValue);
+    fetchOpenrouteAutocomplete(searchBoxTownValue,searchBoxStreetValue);
+    // fetchOpenrouteNew(searchBoxTownValue, searchBoxStreetValue).then((cites) =>
+    //   console.log(cites.features[0].properties.label)
+    // );
+  }, DEBOUNCE_DELAY)
+);
+
+const fetchOpenrouteAutocomplete = async (inputValueTown, inputValueStreet) =>{
+  try {
+    await fetchOpenrouteAutocompleteTown(inputValueTown);
+    await fetchOpenrouteAutocompleteStreet(inputValueStreet);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function fetchOpenrouteAutocompleteTown(inputValueTown) {
+  try {
+    if (inputValueTown.length<=2) {
+      return
+    }
+    const params = new URLSearchParams({
+      api_key: API_KEY,
+      text: inputValueTown,
+      layers: "locality"
+    });
+    let fetchUrl = OPENROUTE_API_URL_AUTOCOMPLETE + "?" + params + "&" + ANOTHER_PARAMS_API_URL;
+    const response = await fetch(fetchUrl);
+    const places = await response.json();
+    console.log(places.features);
+    searchResultsDivStartTitle.innerHTML = `<span class="search-results__title">Wybierz pasującą miejscowość</span>`;
+    createResultsTags(places);
+    searchResultsDivStart.addEventListener("click", handlingResultsTag);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function fetchOpenrouteAutocompleteStreet(inputValueStreet){
+  
+}
+
+//---------insert to DOM to the "search-results-start" class max 10 places to the next choice
+function createResultsTags(places){
+  let resultTagsHTML = "";
+  places.features.map((place)=>{
+    resultTagsHTML += `
+    <p class="search-results__content" data-town="${place.properties.locality}" style="cursor:pointer;">
+    &#187;&#8194;${place.properties.name}&#8194;${place.properties.locality}&#8194;${place.properties.region}
+    </p>
+    ` 
+  });
+  searchResultsDivStart.innerHTML = resultTagsHTML;
+};
+
+//---------insert to DOM to the "search-results-start" class only one place and allows you to narrow down your search results
+function handlingResultsTag(evt){
+  if (evt.target.nodeName === "P"){
+    let event = evt;
+    createOneResultsTags(event)
+  };
+  if(evt.target.className === "delete-my-choise"){
+    deleteMyChoise()
   }
 };
-
-searchBoxForm.addEventListener("input", debounce(()=>{
-  let searchBoxTownValue = searchBoxForm.town.value.trim();
-  let searchBoxStreetValue = searchBoxForm.street.value.trim();
-  console.log(searchBoxTownValue, searchBoxStreetValue);
-  fetchOpenroute(searchBoxTownValue, searchBoxStreetValue);
-}, DEBOUNCE_DELAY));
-
-function fetchOpenroute(town ,address){
-  const params = new URLSearchParams({
-    api_key: API_KEY,
-    address: address,
-    locality: town
-  })
-  let fetchUrl = OPENROUTE_API_URL+"?"+params+"&"+ANOTHER_PARAMS_API_URL;
-  console.log(fetchUrl);
-  fetch(fetchUrl)
-  .then((response)=>{
-    if(!response.ok){
-      throw new Error(response.status)
-    }
-    return response.json()
-  })
-  .then((data)=>{
-    console.log(data);
-    
-    data.features.forEach((place)=>{
-      const chosenPlaceObject = new ChosenPlaceObject(place.properties.label, place.properties.region, place.geometry.coordinates[0], place.geometry.coordinates[1]);
-      console.log(chosenPlaceObject);
-    })
-  })
-  .catch((error)=>{
-    console.log(error);
-  })
+function createOneResultsTags(event){
+  searchBoxForm.start.style.display="none";
+  searchBoxForm.start_street.style.display="inline";
+  searchResultsDivStartTitle.innerHTML = `<span class="search-results__title">Możesz sprecyzować wybór wpisując nazwę ulicy</span>`;
+  searchResultsDivStart.innerHTML = `<span class="search-results__content">${event.target.dataset.town} &#8194 <span class="delete-my-choise" style="cursor:pointer;">Usuń</span></span>`;
+  return
 };
 
+function deleteMyChoise(){
+  searchResultsDivStart.innerHTML = "";
+  searchResultsDivStartTitle.innerHTML = "";
+  searchBoxForm.start.style.display="inline";
+  searchBoxForm.start_street.style.display="none";  
+  searchBoxForm.start.value="";
+  return
+};
+//-----------------------------------------------------------------------------------------------------------------
 
 
 
-// const objJson = 
+
+// const fetchOpenrouteNew = async (town, address) => {
+//   const params = new URLSearchParams({
+//     api_key: API_KEY,
+//     address: address,
+//     locality: town,
+//   });
+//   let fetchUrl =
+//     OPENROUTE_API_URL + "?" + params + "&" + ANOTHER_PARAMS_API_URL;
+//   const response = await fetch(fetchUrl);
+//   const cites = await response.json();
+//   console.log(cites);
+//   return cites;
+// };
+
+// function fetchOpenroute(town, address) {
+//   const params = new URLSearchParams({
+//     api_key: API_KEY,
+//     address: address,
+//     locality: town,
+//   });
+//   const chosenPlaceObjectList = [];
+//   let fetchUrl =
+//     OPENROUTE_API_URL + "?" + params + "&" + ANOTHER_PARAMS_API_URL;
+//   console.log(fetchUrl);
+//   fetch(fetchUrl)
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error(response.status);
+//       }
+//       return response.json();
+//     })
+//     .then((data) => {
+//       console.log(data);
+
+//       data.features.forEach((place) => {
+//         const chosenPlaceObject = new ChosenPlaceObject(
+//           place.properties.label,
+//           place.properties.region,
+//           place.geometry.coordinates[0],
+//           place.geometry.coordinates[1]
+//         );
+//         chosenPlaceObjectList.push(chosenPlaceObject);
+//       });
+//       console.log(chosenPlaceObjectList);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+//   return chosenPlaceObjectList;
+// }
+
+// const objJson =
 // {
 //   "geocoding": {
 //       "version": "0.2",
@@ -227,3 +339,5 @@ function fetchOpenroute(town ,address){
 // const body = '{"locations":[[19.634936,50.132946],[19.846570115898984,50.10754511537663]],"metrics":["distance"],"units":"km"}';
 
 // request.send(body);
+
+
