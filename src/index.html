@@ -4,140 +4,146 @@
     <meta charset="utf-8"/>
     <title>My First Parcel App</title>
     <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="app.js"></script>
+    
   </head>
-  <body>
-    <div class="container">
-      <h2 class="header">openroute service</h2>
-      <div class="search-box">pole wyszukiwania:
-        <form class="search-box-form">
-          <input type="text" placeholder="miejscowość" class="search-box-input" name="town">
-          <input type="text" placeholder="nazwa ulicy" class="search-box-input-address" name="street">
-        </form>
-      </div>
-      <div class="content">
-        <hr>
-
-<!-- <input type="text" class="form-driver__input" placeholder="ulica" name="street"> -->
-<!-- <span class="search-results__title">Wybierz pasującą miejscowość</span> -->
-<!-- <span class="search-results__content"></span> -->
-
-        <section class="modal-form-driver is-hidden" register-driver>
-          <div class="container">
-            <div class="backdrop-temp">
-              <form action="/newRoute" method="post" class="form-driver" name="formDriverNewRoute">
-                <button class="btn-close" type="button" register-driver-close>x</button>
-                <label for="form-driver__route-start" class="form-driver__route-label">
-                  <span class="form-driver__title">Trasa&#58;</span>
-                  <div class="form-driver__input-space">
-                    <input id="form-driver__route-start" type="text" class="form-driver__input" placeholder="Początek trasy" name="start" formDriverNewRoute></div>
-                    <input id="form-driver__route-start" type="text" class="form-driver__input" placeholder="Ulica" name="start_street" style="display: none;"></div>
-                    <div class="search-results-start__title-space"></div> <!--insertHTML with js file, span title-->
-                    <div class="search-results-start"></div> <!--insertHTML with js file, const searchResultsDivStart-->
-                </label>
-                <label for="form-driver__route-end" class="form-driver__route-label">
-                  <div class="form-driver__input-space">
-                    <input id="form-driver__route-end" type="text" class="form-driver__input" placeholder="Koniec trasy" name="end"></div>
-                    <div class="search-results-end__title-space"></div> <!--insertHTML with js file, span title-->
-                    <div class="search-results-end"></div> <!--insertHTML with js file, const searchResultsDivEnd-->
-                </label>
-                <label for="form-driver__data" class="form-driver__data-label">
-                  <span class="form-driver__title">Data przejazdu&#58;</span>
-                  <div class="form-driver__input-space">
-                    <input id="form-driver__data" type="date" class="form-driver__input" name="dataRoute"></div>
-                </label>
-                <label for="form-driver__time-zone1" class="form-driver__time-label">
-                  <p class="form-driver__title">Godzina odjazdu&#58;</p>
-                  <span class="form-driver__subtitle">Strefa 1&#58;</span>
-                  <div class="form-driver__input-space">
-                    <input id="form-driver__time-zone1" type="time" class="form-driver__input" name="departureTimeZone1"></div>
-                </label>
-                <label for="form-driver__time-zone1" class="form-driver__time-label">
-                  <span class="form-driver__subtitle">Strefa 2&#58;</span>
-                  <div class="form-driver__input-space">  
-                    <input id="form-driver__time-zone1" type="time" class="form-driver__input" name="departureTimeZone2"></div>
-                </label>
-                <label for="form-driver__time-zone1" class="form-driver__time-label">
-                  <span class="form-driver__subtitle">Strefa 3&#58;</span>
-                  <div class="form-driver__input-space">
-                    <input id="form-driver__time-zone1" type="time" class="form-driver__input" name="departureTimeZone3"></div>
-                </label>
-                <label for="form-driver__passengers" class="form-driver__passengers-label">
-                  <span class="form-driver__title">Ilość pasażerów&#58;</span>
-                  <div class="form-driver__input-space">
-                    <input id="form-driver__passengers" type="number" class="form-driver__input" name="placesInCar"></div>
-                </label>
-                <label for="form-driver__price-zone1" class="form-driver__price-label">
-                  <p class="form-driver__title">Cena dla pasażera&#58;</p>
-                  <span class="form-driver__subtitle">Strefa 1&#58;</span>
-                  <div class="form-driver__input-space">
-                    <input id="form-driver__price-zone1" type="text" value="3zł" class="form-driver__input" name="priceZone1"></div>
-                </label>
-                <label for="form-driver__price-zone1" class="form-driver__price-label">
-                  <span class="form-driver__subtitle">Strefa 2&#58;</span>
-                  <div class="form-driver__input-space">
-                    <input id="form-driver__price-zone1" type="text" value="5zł" class="form-driver__input" name="priceZone2"></div>
-                </label>
-                <label for="form-driver__price-zone1" class="form-driver__price-label">
-                  <span class="form-driver__subtitle">Strefa 3&#58;</span>
-                  <div class="form-driver__input-space">  
-                    <input id="form-driver__price-zone1" type="text" value="7zł" class="form-driver__input" name="priceZone3"></div>
-                </label>
-        
-                <label for="form-driver__locality" class="form-driver__locality-label">
-                  <span class="form-driver__title">Miejscowości po drodze&#58;</span>
-                  <div class="form-driver__input-space">
-                    <input id="form-driver__locality" type="text" class="form-driver__input" name="placesOnRoute"></div>
-                </label>
+  <body>     
+    <section class="modal-form-driver is-hidden" register-driver>
+      <div class="container">
+        <div class="backdrop-temp">
+          <form action="/newRoute" method="post" class="form-driver"  name="formDriverNewRoute" id="qqqqqqq">
+            <button class="btn-close" type="button" register-driver-close>x</button>
+            <!------------------------------START ROUTE---------------------------->
+            <label for="form-driver__route-start" class="form-driver__route-label">
+              <p class="form-driver__title">Trasa&#58;</p>
+              <span class="form-driver__notice">Jeśli do wyszukiwania adresu potrzebujesz nazwy ulicy koniecznie wpisz ją przed miejscowością</span>
+              
+              <div class="form-driver__input-space">
+                <input id="form-driver__route-start" class="form-driver__input" list="form-driver__route-start-list" placeholder="Początek trasy" autocomplete="off" name="start" formDriverNewRoute>
+                <span class="form-driver__route-start-choise-label"></span>
+                <div class="form-driver__route-start-list"></div>
+                <!-- <datalist id="form-driver__route-start-list">
+                  <option>Russia</option>
+                </datalist>   -->
+              </div>  
+            </label>
+            <!--------------------------------------------------------------------->
+            <!-------------------------------END ROUTE----------------------------->
+            <label for="form-driver__route-start" class="form-driver__route-label">
+              <!-- <span class="form-driver__notice">Jeśli do wyszukiwania adresu potrzebujesz nazwy ulicy koniecznie wpisz ją przed miejscowością</span> -->
+              
+              <div class="form-driver__input-space">
+                <input id="form-driver__route-end" class="form-driver__input" list="form-driver__route-end-list" placeholder="Koniec trasy" autocomplete="off" name="end" formDriverNewRoute>
+                <span class="form-driver__route-end-choise-label"></span>
+                <div class="form-driver__route-end-list"></div>
+                <!-- <datalist id="form-driver__route-end-list">
+                  <option>Russia</option>
+                </datalist>   -->
+              </div>  
+            </label>
+            <!--------------------------------------------------------------------->    
+            </label>
+            <label for="form-driver__data" class="form-driver__data-label">
+              <span class="form-driver__title">Data przejazdu&#58;</span>
+              <div class="form-driver__input-space">
+                <input id="form-driver__data" type="date" class="form-driver__input" name="dataRoute"></div>
+            </label>
+            <label for="form-driver__time-zone1" class="form-driver__time-label" style="display: none;">
+              <p class="form-driver__title">Godzina odjazdu&#58;</p>
+              <span class="form-driver__subtitle">Strefa 1&#58;</span>
+              <div class="form-driver__input-space">
+                <input id="form-driver__time-zone1" type="time" class="form-driver__input" name="departureTimeZone1"></div>
+            </label>
+            <label for="form-driver__time-zone1" class="form-driver__time-label" style="display: none;">
+              <span class="form-driver__subtitle">Strefa 2&#58;</span>
+              <div class="form-driver__input-space">  
+                <input id="form-driver__time-zone1" type="time" class="form-driver__input" name="departureTimeZone2"></div>
+            </label>
+            <label for="form-driver__time-zone1" class="form-driver__time-label" style="display: none;">
+              <span class="form-driver__subtitle">Strefa 3&#58;</span>
+              <div class="form-driver__input-space">
+                <input id="form-driver__time-zone1" type="time" class="form-driver__input" name="departureTimeZone3"></div>
+            </label>
+            <label for="form-driver__passengers" class="form-driver__passengers-label">
+              <span class="form-driver__title">Ilość pasażerów&#58;</span>
+              <div class="form-driver__input-space">
+                <input id="form-driver__passengers" type="number" class="form-driver__input" name="placesInCar"></div>
+            </label>
+            <label for="form-driver__price-zone1" class="form-driver__price-label" style="display: none;">
+              <p class="form-driver__title">Cena dla pasażera&#58;</p>
+              <span class="form-driver__subtitle">Strefa 1&#58;</span>
+              <div class="form-driver__input-space">
+                <input id="form-driver__price-zone1" type="text" value="3zł" class="form-driver__input" name="priceZone1"></div>
+            </label>
+            <label for="form-driver__price-zone1" class="form-driver__price-label" style="display: none;">
+              <span class="form-driver__subtitle">Strefa 2&#58;</span>
+              <div class="form-driver__input-space">
+                <input id="form-driver__price-zone1" type="text" value="5zł" class="form-driver__input" name="priceZone2"></div>
+            </label>
+            <label for="form-driver__price-zone1" class="form-driver__price-label" style="display: none;">
+              <span class="form-driver__subtitle">Strefa 3&#58;</span>
+              <div class="form-driver__input-space">  
+                <input id="form-driver__price-zone1" type="text" value="7zł" class="form-driver__input" name="priceZone3"></div>
+            </label>
                 <!-- **********************EXAMPLE LOCALIZATION START********************** -->
-                <div class="form-driver__locality-place-stop">
-                  <label for="form-driver__locality-town" class="form-driver__locality-label">
-                    <span class="form-driver__subtitle">Miejscowość&#58;</span>
-                    <div class="form-driver__input-space">
-                      <input id="form-driver__locality-town" type="text" class="form-driver__input">
-                    </div>
-                  </label>
+            <label for="form-driver__locality" class="form-driver__locality-label form-driver__locality">
+              <span class="form-driver__title">Przebieg trasy&#58;</span>
+              <div class="form-driver__input-space">
+                <!-- <input id="form-driver__locality" type="text" class="form-driver__input" name="placesOnRoute"></div> -->
+            </label>
+            
+            <div class="form-driver__locality-place-stop">
+              <label for="form-driver__locality-town" class="form-driver__locality-label form-driver__locality-zone1" style="display: none;">
+                <span class="form-driver__subtitle">Strefa 1&#58;</span>
+                <div class="form-driver__input-space form-driver__input-space-zone1">
+                  <div class="form-driver__places-on-route-space-zone1"></div>
+                  <!-- <span class="form-driver__locality-content-zone1"></span> -->
+                  <input id="form-driver__locality-town" type="text" class="form-driver__input" name="localityZone1" style="display: none;">
                 </div>
-                <div class="form-driver__locality-place-stop">
-                  <label for="form-driver__locality-street" class="form-driver__locality-label">
-                    <span class="form-driver__subtitle">Ulica&#58;</span>
-                    <div class="form-driver__input-space">
-                      <input id="form-driver__locality-street" type="text" class="form-driver__input">
-                    </div>
-                  </label>
-                </div>
-                <div class="form-driver__locality-place-stop">
-                  <label for="form-driver__locality-number" class="form-driver__locality-label">
-                    <span class="form-driver__subtitle">Numer&#58;</span>
-                    <div class="form-driver__input-space">
-                      <input id="form-driver__locality-number" type="number" class="form-driver__input">
-                    </div>
-                  </label>
-                </div>
-                <!-- **********************EXAMPLE LOCALIZATION END********************** -->
-                <div class="form-driver__locality-place-textarea">
-                  <label for="form-driver__locality-comment" class="form-driver__locality-label">
-                    <span class="form-driver__subtitle">Komentarz&#58;</span>
-                    <div class="form-driver__input-space">
-                      <textarea id="form-driver__locality-comment" type="text" class="form-driver__input" placeholder="Jeśli nie podajesz adresu opisz miejsce spotkania" name="driverComment"></textarea>
-                    </div>
-                  </label>
-                </div>
-                <label for="form-driver__contact" class="form-driver__contact-label">
-                  <span class="form-driver__title">Kontakt do Ciebie&#58;</span>
-                  <div class="form-driver__input-space">
-                    <input id="form-driver__contact" type="text" class="form-driver__input" name="contactToDriver"></div>
-                </label>
-                <button class="button-small form-driver__btn" type="submit">
-                  <span class="btn-small-title form-driver__btn-title">Potwierdź</span>
-                </button>
-              </form>
+              </label>
             </div>
-          </div>
-        </section>
-    
+            <div class="form-driver__locality-place-stop">
+              <label for="form-driver__locality-street" class="form-driver__locality-label form-driver__locality-zone2" style="display: none;">
+                <span class="form-driver__subtitle">Strefa 2&#58;</span>
+                <div class="form-driver__input-space form-driver__input-space-zone2">
+                  <div class="form-driver__places-on-route-space-zone2"></div>
+                  <!-- <span class="form-driver__locality-content-zone2"></span> -->
+                  <input id="form-driver__locality-street" type="text" class="form-driver__input" name="localityZone2" style="display: none;">
+                </div>
+              </label>
+            </div>
+            <div class="form-driver__locality-place-stop">
+              <label for="form-driver__locality-number" class="form-driver__locality-label form-driver__locality-zone3" style="display: none;">
+                <span class="form-driver__subtitle">Strefa 3&#58;</span>
+                <div class="form-driver__input-space form-driver__input-space-zone3">
+                  <div class="form-driver__places-on-route-space-zone3"></div>
+                  <!-- <span class="form-driver__locality-content-zone3"></span> -->
+                  <input id="form-driver__locality-number" type="number" class="form-driver__input" name="localityZone3" style="display: none;">
+                </div>
+              </label>
+            </div>
+            <!-- **********************EXAMPLE LOCALIZATION END********************** -->
+            <div class="form-driver__locality-place-textarea">
+              <label for="form-driver__locality-comment" class="form-driver__locality-label">
+                <span class="form-driver__subtitle">Komentarz&#58;</span>
+                <div class="form-driver__input-space">
+                  <textarea id="form-driver__locality-comment" type="text" class="form-driver__input" placeholder="Jeśli nie podajesz adresu opisz miejsce spotkania" name="driverComment"></textarea>
+                </div>
+              </label>
+            </div>
+            <label for="form-driver__contact" class="form-driver__contact-label">
+              <span class="form-driver__title">Kontakt do Ciebie&#58;</span>
+              <div class="form-driver__input-space">
+                <input id="form-driver__contact" type="text" class="form-driver__input" name="contactToDriver"></div>
+            </label>
+            <button class="button-small form-driver__btn" type="submit">
+              <span class="btn-small-title form-driver__btn-title">Potwierdź</span>
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
-    
+    </section>
+
+    <script type="module" src="app-start.js"></script>
+    <script type="module" src="app-end.js"></script>
   </body>
 </html>
