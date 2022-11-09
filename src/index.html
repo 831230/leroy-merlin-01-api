@@ -17,7 +17,7 @@
               <p class="form-driver__title">Trasa&#58;</p>
               <span class="form-driver__notice">Jeśli do wyszukiwania adresu potrzebujesz nazwy ulicy koniecznie wpisz ją przed miejscowością</span>
               
-              <div class="form-driver__input-space">
+              <div class="form-driver__input-space form-driver__input-space--start-end">
                 <input id="form-driver__route-start" class="form-driver__input" list="form-driver__route-start-list" placeholder="Początek trasy" autocomplete="off" name="start" formDriverNewRoute>
                 <span class="form-driver__route-start-choise-label"></span>
                 <div class="form-driver__route-start-list"></div>
@@ -31,7 +31,7 @@
             <label for="form-driver__route-start" class="form-driver__route-label">
               <!-- <span class="form-driver__notice">Jeśli do wyszukiwania adresu potrzebujesz nazwy ulicy koniecznie wpisz ją przed miejscowością</span> -->
               
-              <div class="form-driver__input-space">
+              <div class="form-driver__input-space form-driver__input-space--start-end">
                 <input id="form-driver__route-end" class="form-driver__input" list="form-driver__route-end-list" placeholder="Koniec trasy" autocomplete="off" name="end" formDriverNewRoute>
                 <span class="form-driver__route-end-choise-label"></span>
                 <div class="form-driver__route-end-list"></div>
@@ -72,23 +72,27 @@
               <p class="form-driver__title">Cena dla pasażera&#58;</p>
               <span class="form-driver__subtitle">Strefa 1&#58;</span>
               <div class="form-driver__input-space">
-                <input id="form-driver__price-zone1" type="text" value="3zł" class="form-driver__input" name="priceZone1"></div>
+                <input id="form-driver__price-zone1" type="text" value="3zł" class="form-driver__input" name="priceZone1">
+              </div>
             </label>
             <label for="form-driver__price-zone1" class="form-driver__price-label" style="display: none;">
               <span class="form-driver__subtitle">Strefa 2&#58;</span>
               <div class="form-driver__input-space">
-                <input id="form-driver__price-zone1" type="text" value="5zł" class="form-driver__input" name="priceZone2"></div>
+                <input id="form-driver__price-zone1" type="text" value="5zł" class="form-driver__input" name="priceZone2">
+              </div>
             </label>
             <label for="form-driver__price-zone1" class="form-driver__price-label" style="display: none;">
               <span class="form-driver__subtitle">Strefa 3&#58;</span>
               <div class="form-driver__input-space">  
-                <input id="form-driver__price-zone1" type="text" value="7zł" class="form-driver__input" name="priceZone3"></div>
+                <input id="form-driver__price-zone1" type="text" value="7zł" class="form-driver__input" name="priceZone3">
+              </div>
             </label>
                 <!-- **********************EXAMPLE LOCALIZATION START********************** -->
             <label for="form-driver__locality" class="form-driver__locality-label form-driver__locality">
               <span class="form-driver__title">Przebieg trasy&#58;</span>
               <div class="form-driver__input-space">
-                <!-- <input id="form-driver__locality" type="text" class="form-driver__input" name="placesOnRoute"></div> -->
+                <!-- <input id="form-driver__locality" type="text" class="form-driver__input" name="placesOnRoute"> -->
+              </div>
             </label>
             
             <div class="form-driver__locality-place-stop">
@@ -124,7 +128,7 @@
             <!-- **********************EXAMPLE LOCALIZATION END********************** -->
             <div class="form-driver__locality-place-textarea">
               <label for="form-driver__locality-comment" class="form-driver__locality-label">
-                <span class="form-driver__subtitle">Komentarz&#58;</span>
+                <span class="form-driver__title">Komentarz&#58;</span>
                 <div class="form-driver__input-space">
                   <textarea id="form-driver__locality-comment" type="text" class="form-driver__input" placeholder="Jeśli nie podajesz adresu opisz miejsce spotkania" name="driverComment"></textarea>
                 </div>

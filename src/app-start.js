@@ -37,15 +37,6 @@ function roundingMethodToSecPlace(value){
 };
 //--------------------------------------------------------------
 
-class ChosenPlaceObject {
-  constructor(label, region, coordinatesLat, coordinatesLon) {
-    (this.label = label),
-      (this.region = region),
-      (this.coordinatesLat = coordinatesLat),
-      (this.coordinatesLon = coordinatesLon);
-  }
-}
-
 // ---------------------------ROUTE STRART & END LISTENER---------------------------------
 searchBoxForm.addEventListener(
   "input",
@@ -127,7 +118,6 @@ function createResultsTagEnd(places){
 //--------------------------------------------------------------------------------------
 
 function handlingSearchedResults(evt){
-  if(evt.target.name === "dataRoute" && evt.target.name === "departureTimeZone1"){return};
   if (evt.target.className === "search-results-start__content-list"){
     let event = evt;
     createOneResultTagStart(event);
@@ -189,9 +179,6 @@ function deleteMyAllChoiseStart(){
   placesOnRouteZone1DIV.parentNode.parentNode.style.display="none";
   placesOnRouteZone2DIV.parentNode.parentNode.style.display="none";
   placesOnRouteZone3DIV.parentNode.parentNode.style.display="none";
-  // searchBoxForm.localityZone1.parentNode.innerHTML = "";
-  // searchBoxForm.localityZone2.parentNode.innerHTML = "";
-  // searchBoxForm.localityZone3.parentNode.innerHTML = "";
 };
 function deleteMyAllChoiseEnd(){
   searchBoxForm.end.style.display="inline";
@@ -208,9 +195,6 @@ function deleteMyAllChoiseEnd(){
   placesOnRouteZone1DIV.parentNode.parentNode.style.display="none";
   placesOnRouteZone2DIV.parentNode.parentNode.style.display="none";
   placesOnRouteZone3DIV.parentNode.parentNode.style.display="none";
-  // searchBoxForm.localityZone1.parentNode.innerHTML = "";
-  // searchBoxForm.localityZone2.parentNode.innerHTML = "";
-  // searchBoxForm.localityZone3.parentNode.innerHTML = "";
 };
 //-----------------------------------------------------------------------------------------------------
 
@@ -236,13 +220,11 @@ async function fetchOpenrouteGetRoute(latLonStartArray, latLonEndArray, event){
     console.log("czas dojazdu: ", routeDuration);
     console.log("Miejsca na trasie: ", placesOnRoute);
     if(routeDistance < 10){
-      // console.log("the route is going throught only one zone");
       searchBoxForm.departureTimeZone1.parentNode.parentNode.style.display="inline";
       searchBoxForm.priceZone1.parentNode.parentNode.style.display="inline";
       placesOnRouteZone1DIV.parentNode.parentNode.style.display="inline";
     };
     if(routeDistance >= 10 && routeDistance < 20){
-      // console.log("the route is going throught one and two zone");
       searchBoxForm.departureTimeZone1.parentNode.parentNode.style.display="inline";
       searchBoxForm.departureTimeZone2.parentNode.parentNode.style.display="inline";
       searchBoxForm.priceZone1.parentNode.parentNode.style.display="inline";
@@ -251,7 +233,6 @@ async function fetchOpenrouteGetRoute(latLonStartArray, latLonEndArray, event){
       placesOnRouteZone2DIV.parentNode.parentNode.style.display="inline";
     };
     if(routeDistance >= 20){
-      // console.log("the route is going throught one, two and three zone");
       searchBoxForm.departureTimeZone1.parentNode.parentNode.style.display="inline";
       searchBoxForm.departureTimeZone2.parentNode.parentNode.style.display="inline";
       searchBoxForm.departureTimeZone3.parentNode.parentNode.style.display="inline";
